@@ -1,99 +1,47 @@
-# נקודת פתיחה לפרויקט הגמר · יומן פרומפטים אוטומטי
+# Pokemon Explorer
 
-ב-repo הזה יש דבר אחד: **רישום אוטומטי של כל פרומפט שאתם שולחים לסוכן**, אל תוך `PROMPTS.md`.
-את האפליקציה אתם בונים בעצמכם, לפי הוראות הפרויקט.
+A new React + Vite + TypeScript course project generated from the [instructor's template](https://github.com/YarivGilad/react-project-starter).
 
-## מתחילים
+## Current status
 
-**1 · יוצרים repo משלכם.** היכנסו ל-GitHub עם המשתמש שלכם, ופתחו את הקישור:
-**[יצירת repo חדש מהתבנית](https://github.com/new?template_name=react-project-starter&template_owner=YarivGilad)**.
-תנו לו שם, בחרו **Public**, ולחצו **Create repository**.
+Only the starting point is implemented: an English landing page, React Router, Vitest/UI and ESLint.
+Pokemon features are not implemented. Favorites and Compare are the approved additional functional pages.
+Automatic prompt capture was verified with a real new user message on October 17, 2026. Task 1 setup is complete; Task 2 has not started.
 
-אפשר גם מהעמוד הזה: כשאתם מחוברים ל-GitHub, בפינה הימנית העליונה מופיע הכפתור **Use this template** ← **Create a new repository**.
-בלי חיבור ל-GitHub הכפתור לא מופיע.
+## Run and check
 
-<img src=".github/images/use-this-template.png" alt="Use this template → Create a new repository" width="300">
+Use Node.js 22.19 or newer compatible with Vite 8.
 
-**2 · מורידים אותו למחשב.**
-
-```bash
-git clone https://github.com/<שם-המשתמש-שלכם>/<שם-הפרויקט>.git
-cd <שם-הפרויקט>
+```sh
+npm install
+npm run dev
+npm run build
+npm run preview
+npm run lint
+npm test
+npm run test:ui
 ```
 
-**3 · בודקים שהיומן עובד.** פתחו את הסוכן **מתוך תיקיית הפרויקט**, שלחו לו הודעה כלשהי, ואז:
+The initial smoke test checks only the starting page. It does not replace the five meaningful application-logic tests required later.
 
-```bash
-tail -n 20 PROMPTS.md
-```
+## API
 
-רואים את ההודעה? מצוין. לא רואים? ראו "כשזה לא עובד" למטה. **אל תמשיכו לפני שזה עובד.**
+[PokéAPI](https://pokeapi.co/) is free and requires no key.
+List: https://pokeapi.co/api/v2/pokemon?limit=60
+Details: https://pokeapi.co/api/v2/pokemon/{id}
+The catalog filter applies to the first 60 loaded Pokemon.
 
-**4 · יוצרים את אפליקציית Vite באותה תיקייה** (שימו לב לנקודה אחרי `@latest`):
+## Documents
 
-```bash
-npm create vite@latest . -- --template react-ts
-```
+- [Requirements map](docs/requirements-map.md)
+- [Product requirements](PRD.md)
+- [Tasks](tasks.md)
+- [Setup status](docs/setup-status.md)
+- [Prompt log](PROMPTS.md)
+- [Agent guidelines](AGENTS.md)
 
-כשמופיעה השאלה `Current directory is not empty`, בחרו **Ignore files and continue**.
+## Submission
 
-> ⚠️ **לא** לבחור `Remove existing files and continue` — זה מוחק את ה-hooks ואת `PROMPTS.md`, והיומן נעלם.
-
-Vite יחליף את `README.md` ואת `.gitignore` בגרסאות שלו. זה בסדר: את ה-README תכתבו מחדש, על הפרויקט שלכם.
-
-**5 · commit ראשון**, ומשם — משימה אחת בכל פעם, ו-commit אחרי כל משימה.
-
-## מה יש כאן
-
-```
-.claude/settings.json        hook ל-Claude Code
-.codex/hooks.json            hook ל-Codex
-.gemini/settings.json        hook ל-Gemini CLI
-.agents/hooks.json           hook ל-Antigravity
-.github/hooks/log-prompt.json  hook ל-GitHub Copilot (ב-VS Code וב-Copilot CLI)
-scripts/log-prompt.mjs       הסקריפט שכותב ל-PROMPTS.md
-AGENTS.md, CLAUDE.md         כללי עבודה לסוכן: משימה אחת בכל פעם, בלי commit בשבילכם
-PROMPTS.md                   היומן — נכתב אוטומטית
-```
-
-## איך היומן עובד
-
-לסוכנים יש **hooks**: נקודות שבהן הם מריצים פקודה משלכם. כאן מחובר hook שרץ **בכל פעם שאתם שולחים הודעה לסוכן**.
-הוא מעביר את הפרומפט לסקריפט `scripts/log-prompt.mjs`, והסקריפט מוסיף אותו ל-`PROMPTS.md` עם השעה ושם הסוכן.
-
-```markdown
-## 2026-10-14
-
-**18:42 · claude**
-
-> תוסיף שדה חיפוש מעל הרשימה
-
-**18:55 · claude**
-
-> החיפוש מוחק את הרשימה כשמוחקים את כל האותיות. תתקן
-```
-
-הרשומה השנייה היא בדיוק מה שאנחנו מחפשים: **תהליך**. ניסיון, בדיקה, תיקון.
-
-| סוכן | הערה |
-|---|---|
-| **Claude Code** | בהפעלה הראשונה צריך לאשר את ה-hook פעם אחת. |
-| **Codex CLI** | אוטומטי. |
-| **Gemini CLI** | בהפעלה הראשונה תופיע אזהרה על hook חדש בפרויקט. זה ה-hook הזה. |
-| **Antigravity** | ה-hook לא מקבל את הפרומפט עצמו, אז הרשומה מופיעה רק כשהסוכן מסיים לענות. |
-| **GitHub Copilot** | ב-VS Code: צריך לאשר שאתם סומכים על התיקייה (Trust). |
-| **כלים אחרים** (Cursor ועוד) | אין hook. ב-`AGENTS.md` יש הוראה לסוכן לרשום כל הודעה בעצמו — ודאו שהוא עושה את זה. |
-
-## כשזה לא עובד
-
-- ודאו ש-`node -v` מציג מספר גרסה.
-- ודאו שפתחתם את הסוכן **מתוך תיקיית הפרויקט**, ולא מתיקייה מעליה.
-- עדיין לא עובד? הוסיפו את הרשומה בעצמכם, באותו פורמט, ותגידו לי.
-
-## היומן והציון
-
-- **commit ל-`PROMPTS.md` יחד עם הקוד**, אחרי כל משימה.
-- אחרי כל משימה הוסיפו שורה משלכם: מה בדקתם, ומה שיניתם בעצמכם.
-- אל תערכו את היומן בדיעבד כדי שייראה יפה. יומן מסודר מדי בולט לרעה.
-
-> **פרטיות:** כל מה שאתם כותבים לסוכן נשמר בקובץ ועולה ל-GitHub. אל תכתבו בפרומפטים סיסמאות, מפתחות, או פרטים אישיים של מישהו.
+Public GitHub repository link on the college website by November 13, 2026, 09:00 (Asia/Jerusalem).
+Approximately seven-minute individual defense on November 17, 2026, in the morning.
+No video. Prepare to explain the actual code, data flow, routing and tests without agent assistance.

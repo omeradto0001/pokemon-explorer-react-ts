@@ -1,0 +1,20 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #172338;
+  background: #f4f7fb;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+.starter {
+  width: min(42rem, calc(100% - 2rem));
+  margin: 12vh auto;
+  padding: clamp(1.5rem, 5vw, 3rem);
+  background: white;
+  border: 1px solid #dce3ed;
+  border-radius: 1rem;
+}
+.eyebrow { color: #3157a5; font-weight: 700; }
+h1 { font-size: clamp(1.8rem, 5vw, 2.7rem); line-height: 1.15; }
+p { line-height: 1.6; }
