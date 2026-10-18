@@ -5,7 +5,7 @@ No completion marks carry over from the old project.
 
 - [x] Task 1: Prepare and verify the English-authored TypeScript starting point.
   - Done when: Omer owns the new public template repository, the same local folder uses it, Router/Vitest/UI are installed, build/lint/smoke checks pass, the browser renders the starter, and a real new user message is automatically captured.
-- [ ] Task 2: Record the approved product scope and render a typed local Pokemon list.
+- [x] Task 2: Record the approved product scope and render a typed local Pokemon list.
   - Done when: `PRD.md` records Favorites, Compare, the 60-item filter scope and detail fields; a typed local `PokemonSummary` dataset renders through separate `PokemonList` and `PokemonListItem` components using `map` and stable ID keys; and no `any` is used.
 - [ ] Task 3: Add list/detail routing and navigation.
   - Done when: `/` redirects to `/pokemon`; `NavLink` reaches `/pokemon`, `/favorites` and `/compare`; every Pokemon links to `/pokemon/:id`; `useParams` supplies the detail identifier as the source of truth; and the corresponding list item is visually identified when the list is visible.

@@ -1,20 +1,207 @@
 :root {
-  font-family: system-ui, sans-serif;
-  color: #172338;
-  background: #f4f7fb;
+  font-family: Inter, ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
+  color: #18213a;
+  background: #f7f8fc;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+  --color-ink: #18213a;
+  --color-muted: #68718a;
+  --color-surface: #ffffff;
+  --color-primary: #3d5af1;
+  --color-primary-soft: #e9edff;
+  --color-accent: #ffcb3d;
+  --color-border: #e5e8f1;
+  --shadow-card: 0 18px 45px rgba(36, 46, 91, 0.12);
+  --radius-large: 1.5rem;
+  --page-gutter: clamp(1rem, 4vw, 3rem);
 }
-* { box-sizing: border-box; }
-body { margin: 0; min-width: 320px; }
-.starter {
-  width: min(42rem, calc(100% - 2rem));
-  margin: 12vh auto;
-  padding: clamp(1.5rem, 5vw, 3rem);
-  background: white;
-  border: 1px solid #dce3ed;
-  border-radius: 1rem;
+
+* {
+  box-sizing: border-box;
 }
-.eyebrow { color: #3157a5; font-weight: 700; }
-h1 { font-size: clamp(1.8rem, 5vw, 2.7rem); line-height: 1.15; }
-p { line-height: 1.6; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 8% 5%, rgba(255, 203, 61, 0.32), transparent 24rem),
+    radial-gradient(circle at 92% 18%, rgba(61, 90, 241, 0.16), transparent 28rem),
+    #f7f8fc;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.app-shell {
+  width: min(74rem, 100%);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--page-gutter) 5rem;
+}
+
+.catalog-header {
+  max-width: 42rem;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+.eyebrow {
+  display: inline-flex;
+  margin: 0 0 1rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  color: #2946d3;
+  background: var(--color-primary-soft);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  color: var(--color-ink);
+  font-size: clamp(2.4rem, 7vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.catalog-intro {
+  max-width: 36rem;
+  margin: 1.25rem 0 0;
+  color: var(--color-muted);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.7;
+}
+
+.pokemon-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.pokemon-list-item {
+  --card-accent: #74c7a2;
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  border: 1px solid rgba(229, 232, 241, 0.9);
+  border-radius: var(--radius-large);
+  background: var(--color-surface);
+  box-shadow: 0 8px 24px rgba(36, 46, 91, 0.08);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.pokemon-list-item:nth-child(2) {
+  --card-accent: #ff9d6c;
+}
+
+.pokemon-list-item:nth-child(3) {
+  --card-accent: #72b7f2;
+}
+
+.pokemon-list-item:nth-child(4) {
+  --card-accent: #f7d85a;
+}
+
+.pokemon-list-item::before {
+  position: absolute;
+  z-index: 0;
+  top: -3rem;
+  right: -2.5rem;
+  width: 10rem;
+  height: 10rem;
+  border: 2rem solid rgba(255, 255, 255, 0.34);
+  border-radius: 50%;
+  content: "";
+}
+
+.pokemon-list-item:hover {
+  transform: translateY(-0.35rem);
+  box-shadow: var(--shadow-card);
+}
+
+.pokemon-list-item:focus-within {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.pokemon-list-item__visual {
+  position: relative;
+  display: grid;
+  min-height: 14rem;
+  place-items: center;
+  padding: 1.5rem;
+  background: color-mix(in srgb, var(--card-accent) 78%, white);
+}
+
+.pokemon-list-item__image {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 12rem);
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(0 1rem 0.8rem rgba(24, 33, 58, 0.16));
+  transition: transform 180ms ease;
+}
+
+.pokemon-list-item:hover .pokemon-list-item__image {
+  transform: scale(1.04);
+}
+
+.pokemon-list-item__content {
+  position: relative;
+  padding: 1.25rem 1.35rem 1.45rem;
+}
+
+.pokemon-list-item__number {
+  margin: 0 0 0.35rem;
+  color: var(--color-muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.pokemon-list-item__name {
+  margin: 0;
+  color: var(--color-ink);
+  font-size: 1.35rem;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+@media (max-width: 36rem) {
+  .app-shell {
+    padding-top: 2.5rem;
+  }
+
+  .pokemon-list-item {
+    display: grid;
+    grid-template-columns: 8.5rem 1fr;
+    align-items: center;
+  }
+
+  .pokemon-list-item__visual {
+    min-height: 9.5rem;
+    height: 100%;
+    padding: 0.75rem;
+  }
+
+  .pokemon-list-item__image {
+    width: 7.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pokemon-list-item,
+  .pokemon-list-item__image {
+    transition: none;
+  }
+}

@@ -7,10 +7,12 @@ type PokemonListProps = {
 
 export default function PokemonList({ pokemon }: PokemonListProps) {
   return (
-    <div className="pokemon-list">
-      {pokemon.map((item) => (
-        <PokemonListItem key={item.id} pokemon={item} />
-      ))}
-    </div>
+    <section className="catalog" aria-label="Pokemon catalog">
+      <div className="pokemon-list">
+        {pokemon.map((item) => (
+          <PokemonListItem key={item.id} pokemon={item} />
+        ))}
+      </div>
+    </section>
   )
 }
