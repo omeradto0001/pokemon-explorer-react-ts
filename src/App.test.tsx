@@ -5,7 +5,7 @@ import App from './App'
 
 test('the initial route renders the local Pokemon catalog', () => {
   const html = renderToStaticMarkup(
-    <MemoryRouter initialEntries={['/']}><App /></MemoryRouter>,
+    <MemoryRouter initialEntries={['/pokemon']}><App /></MemoryRouter>,
   )
   expect(html).toContain('Pokemon Explorer')
   expect(html).toContain('Meet the first four')

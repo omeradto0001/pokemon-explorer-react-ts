@@ -1,22 +1,18 @@
-import { Route, Routes } from 'react-router-dom'
-import PokemonList from './components/PokemonList'
-import { pokemon } from './data/pokemon'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import AppLayout from './components/AppLayout'
+import ComparePage from './pages/ComparePage'
+import FavoritesPage from './pages/FavoritesPage'
+import PokemonCatalogPage from './pages/PokemonCatalogPage'
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={
-        <main className="app-shell">
-          <header className="catalog-header">
-            <p className="eyebrow">Pokemon Explorer</p>
-            <h1>Meet the first four</h1>
-            <p className="catalog-intro">
-              A small local collection while we build the complete explorer.
-            </p>
-          </header>
-          <PokemonList pokemon={pokemon} />
-        </main>
-      } />
+      <Route element={<AppLayout />}>
+        <Route index element={<Navigate to="/pokemon" replace />} />
+        <Route path="pokemon" element={<PokemonCatalogPage />} />
+        <Route path="favorites" element={<FavoritesPage />} />
+        <Route path="compare" element={<ComparePage />} />
+      </Route>
     </Routes>
   )
 }
