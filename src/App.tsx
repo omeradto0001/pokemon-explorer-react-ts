@@ -1,4 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
+import PokemonList from './components/PokemonList'
+import { pokemon } from './data/pokemon'
 
 export default function App() {
   return (
@@ -7,8 +9,8 @@ export default function App() {
         <main className="starter">
           <p className="eyebrow">Pokemon Explorer</p>
           <h1>A fresh TypeScript start</h1>
-          <p>React, routing and test tooling are ready.</p>
-          <p>Pokemon features will be built one task at a time.</p>
+          <p>Explore the first local Pokemon collection.</p>
+          <PokemonList pokemon={pokemon} />
         </main>
       } />
     </Routes>
