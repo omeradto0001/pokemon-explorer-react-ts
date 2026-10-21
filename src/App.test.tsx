@@ -3,16 +3,13 @@ import { MemoryRouter } from 'react-router-dom'
 import { expect, test } from 'vitest'
 import App from './App'
 
-test('the initial route renders the local Pokemon catalog', () => {
+test('the catalog shows loading feedback before its request completes', () => {
   const html = renderToStaticMarkup(
     <MemoryRouter initialEntries={['/pokemon']}><App /></MemoryRouter>,
   )
   expect(html).toContain('Pokemon Explorer')
-  expect(html).toContain('Meet the first four')
-  expect(html).toContain('Bulbasaur')
-  expect(html).toContain('Pikachu')
-  expect(html).toContain('href="/pokemon/1"')
-  expect(html).toContain('href="/pokemon/25"')
+  expect(html).toContain('Explore Pokemon')
+  expect(html).toContain('Loading Pokemon...')
 })
 
 test('the detail route uses its URL identifier to select a Pokemon', () => {
