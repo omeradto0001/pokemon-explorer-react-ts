@@ -7,7 +7,7 @@ No completion marks carry over from the old project.
   - Done when: Omer owns the new public template repository, the same local folder uses it, Router/Vitest/UI are installed, build/lint/smoke checks pass, the browser renders the starter, and a real new user message is automatically captured.
 - [x] Task 2: Record the approved product scope and render a typed local Pokemon list.
   - Done when: `PRD.md` records Favorites, Compare, the 60-item filter scope and detail fields; a typed local `PokemonSummary` dataset renders through separate `PokemonList` and `PokemonListItem` components using `map` and stable ID keys; and no `any` is used.
-- [ ] Task 3: Add list/detail routing and navigation.
+- [x] Task 3: Add list/detail routing and navigation.
   - Done when: `/` redirects to `/pokemon`; `NavLink` reaches `/pokemon`, `/favorites` and `/compare`; every Pokemon links to `/pokemon/:id`; `useParams` supplies the detail identifier as the source of truth; and the corresponding list item is visually identified when the list is visible.
 - [ ] Task 4: Replace local samples with typed PokéAPI data and request states.
   - Done when: `fetch` inside `useEffect` loads `https://pokeapi.co/api/v2/pokemon?limit=60` and the selected result's detail URL into typed API response models; transformation functions produce app models; the detail page shows name, image or fallback, types, abilities, base stats, height and weight; and list/detail requests provide loading, error, empty and success states with retry after failure.
