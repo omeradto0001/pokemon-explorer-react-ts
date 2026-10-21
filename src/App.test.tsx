@@ -12,12 +12,18 @@ test('the catalog shows loading feedback before its request completes', () => {
   expect(html).toContain('Loading Pokemon...')
 })
 
-test('the detail route uses its URL identifier to select a Pokemon', () => {
+test('the detail route shows loading feedback for a valid identifier', () => {
   const html = renderToStaticMarkup(
     <MemoryRouter initialEntries={['/pokemon/25']}><App /></MemoryRouter>,
   )
 
-  expect(html).toContain('Pokemon #025')
-  expect(html).toContain('<h1>Pikachu</h1>')
-  expect(html).toContain('pokemon-list-item--active')
+  expect(html).toContain('Loading Pokemon details...')
+})
+
+test('the detail route rejects an invalid identifier', () => {
+  const html = renderToStaticMarkup(
+    <MemoryRouter initialEntries={['/pokemon/not-an-id']}><App /></MemoryRouter>,
+  )
+
+  expect(html).toContain('Pokemon not found')
 })
