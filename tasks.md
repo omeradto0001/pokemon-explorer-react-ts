@@ -11,7 +11,7 @@ No completion marks carry over from the old project.
   - Done when: `/` redirects to `/pokemon`; `NavLink` reaches `/pokemon`, `/favorites` and `/compare`; every Pokemon links to `/pokemon/:id`; `useParams` supplies the detail identifier as the source of truth; and the corresponding list item is visually identified when the list is visible.
 - [x] Task 4: Replace local samples with typed PokéAPI data and request states.
   - Done when: `fetch` inside `useEffect` loads `https://pokeapi.co/api/v2/pokemon?limit=60` and the selected result's detail URL into typed API response models; transformation functions produce app models; the detail page shows name, image or fallback, types, abilities, base stats, height and weight; and list/detail requests provide loading, error, empty and success states with retry after failure.
-- [ ] Task 5: Add meaningful application-logic tests.
+- [x] Task 5: Add meaningful application-logic tests.
   - Done when: tests cover implemented ID extraction and API-to-app data transformation, pass with `npm test`, and are visible with `npm run test:ui`.
 - [ ] Task 6: Add search or filtering.
   - Done when: a controlled input filters the 60 loaded Pokemon by trimmed, case-insensitive name; matching, no-results and clearing behavior work; and filter logic has meaningful tests.
