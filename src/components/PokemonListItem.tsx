@@ -1,4 +1,5 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
+import { useFavorites } from '../context/FavoritesContext'
 import type { PokemonSummary } from '../types/pokemon'
 
 type PokemonListItemProps = {
@@ -6,14 +7,14 @@ type PokemonListItemProps = {
 }
 
 export default function PokemonListItem({ pokemon }: PokemonListItemProps) {
+  const location = useLocation()
+  const { isFavorite, toggleFavorite } = useFavorites()
+  const detailPath = `/pokemon/${pokemon.id}`
+  const favorite = isFavorite(pokemon.id)
+
   return (
-    <NavLink
-      className={({ isActive }) =>
-        `pokemon-list-item${isActive ? ' pokemon-list-item--active' : ''}`
-      }
-      to={`/pokemon/${pokemon.id}`}
-    >
-      <article className="pokemon-list-item__body">
+    <article className={`pokemon-list-item${location.pathname === detailPath ? ' pokemon-list-item--active' : ''}`}>
+      <NavLink className="pokemon-list-item__link" to={detailPath}>
         <div className="pokemon-list-item__visual">
           <img
             className="pokemon-list-item__image"
@@ -28,7 +29,16 @@ export default function PokemonListItem({ pokemon }: PokemonListItemProps) {
           </p>
           <h2 className="pokemon-list-item__name">{pokemon.name}</h2>
         </div>
-      </article>
-    </NavLink>
+      </NavLink>
+      <button
+        aria-label={favorite ? `Remove ${pokemon.name} from favorites` : `Add ${pokemon.name} to favorites`}
+        aria-pressed={favorite}
+        className={`favorite-button${favorite ? ' favorite-button--active' : ''}`}
+        onClick={() => toggleFavorite(pokemon.id)}
+        type="button"
+      >
+        <span aria-hidden="true">{favorite ? '♥' : '♡'}</span>
+      </button>
+    </article>
   )
 }

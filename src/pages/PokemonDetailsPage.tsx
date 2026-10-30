@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import PokemonList from '../components/PokemonList'
+import { useFavorites } from '../context/FavoritesContext'
 import { usePokemonList } from '../hooks/usePokemonList'
 import type { PokemonDetailApiResponse } from '../types/pokeapi'
 import type { PokemonDetails } from '../types/pokemon'
@@ -42,6 +43,7 @@ export default function PokemonDetailsPage() {
   })
   const [attempt, setAttempt] = useState(0)
   const { state: listState, retry: retryList } = usePokemonList()
+  const { isFavorite, toggleFavorite } = useFavorites()
 
   useEffect(() => {
     if (!hasValidId) {
@@ -132,7 +134,20 @@ export default function PokemonDetailsPage() {
             <p className="eyebrow">
               Pokemon #{String(visibleState.pokemon.id).padStart(3, '0')}
             </p>
-            <h1>{visibleState.pokemon.name}</h1>
+            <div className="pokemon-detail__title-row">
+              <h1>{visibleState.pokemon.name}</h1>
+              <button
+                aria-label={isFavorite(visibleState.pokemon.id)
+                  ? `Remove ${visibleState.pokemon.name} from favorites`
+                  : `Add ${visibleState.pokemon.name} to favorites`}
+                aria-pressed={isFavorite(visibleState.pokemon.id)}
+                className={`favorite-button favorite-button--detail${isFavorite(visibleState.pokemon.id) ? ' favorite-button--active' : ''}`}
+                onClick={() => toggleFavorite(visibleState.pokemon.id)}
+                type="button"
+              >
+                <span aria-hidden="true">{isFavorite(visibleState.pokemon.id) ? '♥' : '♡'}</span>
+              </button>
+            </div>
             <div className="pokemon-detail__types" aria-label="Pokemon types">
               {visibleState.pokemon.types.map((type) => (
                 <span className="pokemon-detail__type" key={type}>{type}</span>
