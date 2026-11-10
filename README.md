@@ -4,7 +4,7 @@ A new React + Vite + TypeScript course project generated from the [instructor's 
 
 ## Current status
 
-Tasks 1–9 are complete: the catalog loads the first 60 Pokemon from PokéAPI with name search, each Pokemon has a detail page, and Favorites are saved in `localStorage` with their own search.
+Tasks 1–10 are complete: the catalog loads the first 60 Pokemon from PokéAPI with name search, each Pokemon has a detail page, and Favorites are saved in `localStorage` with their own search.
 Loading, error (with retry), empty and not-found states are shared components.
 Compare (`/compare`) lets you choose two different Pokemon and shows their types, height, weight and base stats side by side, highlighting the higher value of each stat.
 Automatic prompt capture was verified with a real new user message on October 17, 2026.
@@ -35,6 +35,7 @@ The catalog filter applies to the first 60 loaded Pokemon.
 ## Documents
 
 - [Architecture: components and state ownership](docs/architecture.md)
+- [Regression checklist](docs/regression-checklist.md)
 - [Requirements map](docs/requirements-map.md)
 - [Product requirements](PRD.md)
 - [Tasks](tasks.md)
