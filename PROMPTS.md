@@ -352,3 +352,11 @@ Automatic hook verification is pending. No historical entries were imported from
 
 > עוד הערות תיקון -  
 >  ניקיון: הקבצים src/data/pokemon.ts ו-App.css לא בשימוש, וגם התמונות ב-src/assets.
+
+**13:51 · claude**
+
+> יש הערה שאומרת ש ה-README עדיין אומר שמשימה 2 לא התחילה. - האם יש משהו שאמור לעדכן את הreadme  ? אם כן - מדוע זה לא קורה ?
+
+**13:52 · claude**
+
+> בצע

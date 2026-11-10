@@ -4,9 +4,10 @@ A new React + Vite + TypeScript course project generated from the [instructor's 
 
 ## Current status
 
-Only the starting point is implemented: an English landing page, React Router, Vitest/UI and ESLint.
-Pokemon features are not implemented. Favorites and Compare are the approved additional functional pages.
-Automatic prompt capture was verified with a real new user message on October 17, 2026. Task 1 setup is complete; Task 2 has not started.
+Tasks 1–7 are complete: the catalog loads the first 60 Pokemon from PokéAPI with name search, each Pokemon has a detail page, and Favorites are saved in `localStorage` with their own search.
+Loading, error (with retry), empty and not-found states are shared components.
+Compare (`/compare`) is the next task and currently shows a placeholder.
+Automatic prompt capture was verified with a real new user message on October 17, 2026.
 
 ## Run and check
 
@@ -22,7 +23,7 @@ npm test
 npm run test:ui
 ```
 
-The initial smoke test checks only the starting page. It does not replace the five meaningful application-logic tests required later.
+Tests cover ID extraction, API-to-app mapping, the detail request (success, not found, errors), name filtering, favorites persistence, and basic rendering of the catalog and detail routes.
 
 ## API
 
