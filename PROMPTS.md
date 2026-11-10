@@ -347,3 +347,8 @@ Automatic hook verification is pending. No historical entries were imported from
 **13:44 · claude**
 
 > עכשיו בצע את אותו הדבר לגבי הודעות "אין תוצאות" ו"לא נמצא" - כלומר לעביר לרכיב .
+
+**13:48 · claude**
+
+> עוד הערות תיקון -  
+>  ניקיון: הקבצים src/data/pokemon.ts ו-App.css לא בשימוש, וגם התמונות ב-src/assets.
