@@ -1,17 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import PokemonList from '../components/PokemonList'
 import { useFavorites } from '../context/FavoritesContext'
+import { usePokemonDetails, type PokemonDetailsState } from '../hooks/usePokemonDetails'
 import { usePokemonList } from '../hooks/usePokemonList'
-import type { PokemonDetailApiResponse } from '../types/pokeapi'
 import type { PokemonDetails } from '../types/pokemon'
-import { toPokemonDetails } from '../utils/pokemonMappers'
-
-type DetailState =
-  | { status: 'loading'; requestedId: string | undefined }
-  | { status: 'error'; requestedId: string | undefined }
-  | { status: 'not-found'; requestedId: string | undefined }
-  | { status: 'success'; requestedId: string | undefined; pokemon: PokemonDetails }
 
 function PokemonArtwork({ pokemon }: { pokemon: PokemonDetails }) {
   const [imageFailed, setImageFailed] = useState(false)
@@ -37,63 +30,11 @@ export default function PokemonDetailsPage() {
   const { id } = useParams()
   const pokemonId = id && /^[1-9]\d*$/.test(id) ? Number(id) : NaN
   const hasValidId = Number.isSafeInteger(pokemonId)
-  const [state, setState] = useState<DetailState>({
-    status: 'loading',
-    requestedId: id,
-  })
-  const [attempt, setAttempt] = useState(0)
+  const { state, retry } = usePokemonDetails(hasValidId ? pokemonId : null)
   const { state: listState, retry: retryList } = usePokemonList()
   const { isFavorite, toggleFavorite } = useFavorites()
 
-  useEffect(() => {
-    if (!hasValidId) {
-      return
-    }
-
-    const controller = new AbortController()
-
-    async function loadPokemonDetails() {
-      setState({ status: 'loading', requestedId: id })
-
-      try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}/`, {
-          signal: controller.signal,
-        })
-
-        if (response.status === 404) {
-          if (!controller.signal.aborted) {
-            setState({ status: 'not-found', requestedId: id })
-          }
-          return
-        }
-
-        if (!response.ok) {
-          throw new Error(`Pokemon detail request failed: ${response.status}`)
-        }
-
-        const data: PokemonDetailApiResponse = await response.json()
-        const pokemon = toPokemonDetails(data)
-
-        if (!controller.signal.aborted) {
-          setState({ status: 'success', requestedId: id, pokemon })
-        }
-      } catch {
-        if (!controller.signal.aborted) {
-          setState({ status: 'error', requestedId: id })
-        }
-      }
-    }
-
-    void loadPokemonDetails()
-
-    return () => controller.abort()
-  }, [hasValidId, id, pokemonId, attempt])
-
-  const visibleState: DetailState = !hasValidId
-    ? { status: 'not-found', requestedId: id }
-    : state.requestedId === id
-      ? state
-      : { status: 'loading', requestedId: id }
+  const visibleState: PokemonDetailsState = hasValidId ? state : { status: 'not-found' }
 
   return (
     <div className="app-shell detail-page">
@@ -107,7 +48,7 @@ export default function PokemonDetailsPage() {
         <section className="request-state" role="alert">
           <h1>Could not load Pokemon details</h1>
           <p>Please check your connection and try again.</p>
-          <button className="retry-button" onClick={() => setAttempt((current) => current + 1)} type="button">
+          <button className="retry-button" onClick={retry} type="button">
             Try again
           </button>
         </section>
