@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import EmptyMessage from '../components/EmptyMessage'
+import EmptyState from '../components/EmptyState'
 import ErrorMessage from '../components/ErrorMessage'
 import LoadingMessage from '../components/LoadingMessage'
 import PokemonList from '../components/PokemonList'
@@ -52,14 +54,15 @@ export default function PokemonDetailsPage() {
         />
       )}
       {visibleState.status === 'not-found' && (
-        <section className="empty-state" aria-labelledby="pokemon-not-found-title">
-          <span className="empty-state__icon empty-state__icon--not-found" aria-hidden="true">?</span>
-          <div>
-            <h1 id="pokemon-not-found-title">Pokemon not found</h1>
-            <p>There is no Pokemon with this identifier.</p>
-            <Link className="text-link" to="/pokemon">Return to the catalog</Link>
-          </div>
-        </section>
+        <EmptyState
+          icon="?"
+          iconVariant="not-found"
+          title="Pokemon not found"
+          description="There is no Pokemon with this identifier."
+          headingLevel="h1"
+        >
+          <Link className="text-link" to="/pokemon">Return to the catalog</Link>
+        </EmptyState>
       )}
       {visibleState.status === 'success' && (
         <article className="pokemon-detail">
@@ -124,7 +127,7 @@ export default function PokemonDetailsPage() {
           <ErrorMessage title="Could not load the Pokemon list" onRetry={retryList} />
         )}
         {listState.status === 'success' && listState.pokemon.length === 0 && (
-          <div className="request-state" role="status"><p>No Pokemon found.</p></div>
+          <EmptyMessage description="No Pokemon found." />
         )}
         {listState.status === 'success' && listState.pokemon.length > 0 && (
           <PokemonList pokemon={listState.pokemon} />

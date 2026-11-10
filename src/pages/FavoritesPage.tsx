@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import EmptyMessage from '../components/EmptyMessage'
+import EmptyState from '../components/EmptyState'
 import ErrorMessage from '../components/ErrorMessage'
 import LoadingMessage from '../components/LoadingMessage'
 import PokemonList from '../components/PokemonList'
@@ -36,13 +38,11 @@ export default function FavoritesPage() {
         />
       )}
       {state.status === 'success' && favoritePokemon.length === 0 && (
-        <section className="empty-state" aria-labelledby="favorites-empty-title">
-          <span className="empty-state__icon" aria-hidden="true">♥</span>
-          <div>
-            <h2 id="favorites-empty-title">No favorite Pokemon yet</h2>
-            <p>Your saved Pokemon will appear here.</p>
-        </div>
-        </section>
+        <EmptyState
+          icon="♥"
+          title="No favorite Pokemon yet"
+          description="Your saved Pokemon will appear here."
+        />
       )}
       {state.status === 'success' && favoritePokemon.length > 0 && (
         <>
@@ -60,10 +60,7 @@ export default function FavoritesPage() {
             />
           </div>
           {filteredFavorites.length === 0 ? (
-            <section className="request-state" role="status">
-              <h2>No favorite matches found</h2>
-              <p>Try a different Pokemon name.</p>
-            </section>
+            <EmptyMessage title="No favorite matches found" description="Try a different Pokemon name." />
           ) : (
             <PokemonList pokemon={filteredFavorites} />
           )}

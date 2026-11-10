@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 
+import EmptyMessage from '../components/EmptyMessage'
 import ErrorMessage from '../components/ErrorMessage'
 import LoadingMessage from '../components/LoadingMessage'
 import PokemonList from '../components/PokemonList'
@@ -50,16 +51,10 @@ export default function PokemonCatalogPage() {
         />
       )}
       {state.status === 'success' && state.pokemon.length === 0 && (
-        <section className="request-state" role="status">
-          <h2>No Pokemon found</h2>
-          <p>The catalog is empty right now.</p>
-        </section>
+        <EmptyMessage title="No Pokemon found" description="The catalog is empty right now." />
       )}
       {state.status === 'success' && state.pokemon.length > 0 && filteredPokemon.length === 0 && (
-        <section className="request-state" role="status">
-          <h2>No matches found</h2>
-          <p>Try a different Pokemon name.</p>
-        </section>
+        <EmptyMessage title="No matches found" description="Try a different Pokemon name." />
       )}
       {state.status === 'success' && filteredPokemon.length > 0 && (
         <PokemonList pokemon={filteredPokemon} />
