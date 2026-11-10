@@ -17,7 +17,7 @@ No completion marks carry over from the old project.
   - Done when: a controlled input filters the 60 loaded Pokemon by trimmed, case-insensitive name; matching, no-results and clearing behavior work; and filter logic has meaningful tests.
 - [x] Task 7: Implement persistent Favorites.
   - Done when: users can favorite or unfavorite Pokemon from relevant catalog/detail controls; `/favorites` lists the current choices with links to details; the Favorites search appears when at least one favorite exists and filters by name; identifiers persist safely in `localStorage` after refresh; invalid stored data falls back without crashing; and favorite logic is tested.
-- [ ] Task 8: Implement Pokemon comparison.
+- [x] Task 8: Implement Pokemon comparison.
   - Done when: `/compare` lets users select two distinct Pokemon from the loaded catalog, prevents comparing the same Pokemon twice, loads any required detail data, and displays types, height, weight and base stats side by side with loading, error and empty-selection feedback.
 - [ ] Task 9: Complete reusable components and responsive CSS.
   - Done when: at least four custom non-page components such as `AppLayout`, `Navigation`, `PokemonList`, `PokemonListItem`, `LoadingMessage`, `ErrorMessage` or `PokemonStats` exist in separate files; typed props and state ownership are clear; active/favorite states are visually clear; and catalog, details, Favorites and Compare work on wide and narrow screens.

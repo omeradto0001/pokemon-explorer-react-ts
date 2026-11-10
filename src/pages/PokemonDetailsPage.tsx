@@ -1,34 +1,13 @@
-import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import EmptyMessage from '../components/EmptyMessage'
 import EmptyState from '../components/EmptyState'
 import ErrorMessage from '../components/ErrorMessage'
 import LoadingMessage from '../components/LoadingMessage'
+import PokemonArtwork from '../components/PokemonArtwork'
 import PokemonList from '../components/PokemonList'
 import { useFavorites } from '../context/FavoritesContext'
 import { usePokemonDetails, type PokemonDetailsState } from '../hooks/usePokemonDetails'
 import { usePokemonList } from '../hooks/usePokemonList'
-import type { PokemonDetails } from '../types/pokemon'
-
-function PokemonArtwork({ pokemon }: { pokemon: PokemonDetails }) {
-  const [imageFailed, setImageFailed] = useState(false)
-
-  if (!pokemon.imageUrl || imageFailed) {
-    return (
-      <div className="pokemon-detail__image-fallback" role="img" aria-label={`No image available for ${pokemon.name}`}>
-        No image available
-      </div>
-    )
-  }
-
-  return (
-    <img
-      src={pokemon.imageUrl}
-      alt={pokemon.name}
-      onError={() => setImageFailed(true)}
-    />
-  )
-}
 
 export default function PokemonDetailsPage() {
   const { id } = useParams()
