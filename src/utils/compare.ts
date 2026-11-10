@@ -6,7 +6,9 @@ export type CompareStatRow = {
   second: number | null
 }
 
-export type StatLeader = 'first' | 'second' | 'tie' | null
+export type CompareSide = 'first' | 'second'
+
+export type StatLeader ='first' | 'second' | 'tie' | null
 
 export const MAX_BASE_STAT = 255
 
