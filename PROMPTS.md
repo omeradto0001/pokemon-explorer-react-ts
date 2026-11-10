@@ -329,3 +329,17 @@ Automatic hook verification is pending. No historical entries were imported from
 **13:17 · claude**
 
 > נסח לי קומיט מסודר על הפעולות שביצענו על מנת שאוכל לבצע העתק הדבק - באנגלית
+
+**13:26 · claude**
+
+> <ide_opened_file>The user opened the file /Users/ronengreen/dev2/doctor-logi/Omer-frontend/pokemon-explorer-react/PROMPTS.md in the IDE. This may or may not be related to the current task.</ide_opened_file>
+> ממשיכים להערת תיקון הבאה : 
+> תצוגות ה-loading וה-error חוזרות בארבעה מקומות. הוצא אותן לרכיבים משלהן (LoadingMessage, ErrorMessage). זה גם עונה על דרישת ארבעת הרכיבים.
+
+**13:36 · claude**
+
+> אם נכבה החיבור לאינטרנט לאחר טעינה ראשונית שטענה בהצלחה את כל הפוקימונים -  ואני לוחץ נווגיציה על עמוד פנימי - וחוזר לעמוד הראשי - על ידי לחיצה על העמוד הראשי על האייקון של האפלקציה - האם מוצגים פוקמונים מהטעינה הראשונית ? אם לא - מדוע? האם זה עונה על הדרישות ?
+
+**13:40 · claude**
+
+> נוותר על זה בשלב זה . נסח לי הודעה לקומיט.

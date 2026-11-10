@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import ErrorMessage from '../components/ErrorMessage'
+import LoadingMessage from '../components/LoadingMessage'
 import PokemonList from '../components/PokemonList'
 import { useFavorites } from '../context/FavoritesContext'
 import { usePokemonDetails, type PokemonDetailsState } from '../hooks/usePokemonDetails'
@@ -39,19 +41,15 @@ export default function PokemonDetailsPage() {
   return (
     <div className="app-shell detail-page">
       {visibleState.status === 'loading' && (
-        <section className="request-state" role="status">
-          <span className="request-state__spinner" aria-hidden="true" />
-          <p>Loading Pokemon details...</p>
-        </section>
+        <LoadingMessage message="Loading Pokemon details..." />
       )}
       {visibleState.status === 'error' && (
-        <section className="request-state" role="alert">
-          <h1>Could not load Pokemon details</h1>
-          <p>Please check your connection and try again.</p>
-          <button className="retry-button" onClick={retry} type="button">
-            Try again
-          </button>
-        </section>
+        <ErrorMessage
+          title="Could not load Pokemon details"
+          description="Please check your connection and try again."
+          headingLevel="h1"
+          onRetry={retry}
+        />
       )}
       {visibleState.status === 'not-found' && (
         <section className="empty-state" aria-labelledby="pokemon-not-found-title">
@@ -120,16 +118,10 @@ export default function PokemonDetailsPage() {
           <h2 id="related-pokemon-title">Choose another Pokemon</h2>
         </div>
         {listState.status === 'loading' && (
-          <div className="request-state" role="status">
-            <span className="request-state__spinner" aria-hidden="true" />
-            <p>Loading Pokemon...</p>
-          </div>
+          <LoadingMessage message="Loading Pokemon..." />
         )}
         {listState.status === 'error' && (
-          <div className="request-state" role="alert">
-            <h2>Could not load the Pokemon list</h2>
-            <button className="retry-button" onClick={retryList} type="button">Try again</button>
-          </div>
+          <ErrorMessage title="Could not load the Pokemon list" onRetry={retryList} />
         )}
         {listState.status === 'success' && listState.pokemon.length === 0 && (
           <div className="request-state" role="status"><p>No Pokemon found.</p></div>

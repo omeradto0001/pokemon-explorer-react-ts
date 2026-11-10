@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import ErrorMessage from '../components/ErrorMessage'
+import LoadingMessage from '../components/LoadingMessage'
 import PokemonList from '../components/PokemonList'
 import { useFavorites } from '../context/FavoritesContext'
 import { usePokemonList } from '../hooks/usePokemonList'
@@ -24,19 +26,14 @@ export default function FavoritesPage() {
         </p>
       </header>
       {state.status === 'loading' && (
-        <section className="request-state" role="status">
-          <span className="request-state__spinner" aria-hidden="true" />
-          <p>Loading your favorites...</p>
-        </section>
+        <LoadingMessage message="Loading your favorites..." />
       )}
       {state.status === 'error' && (
-        <section className="request-state" role="alert">
-          <h2>Could not load favorites</h2>
-          <p>Please check your connection and try again.</p>
-          <button className="retry-button" onClick={retry} type="button">
-            Try again
-          </button>
-        </section>
+        <ErrorMessage
+          title="Could not load favorites"
+          description="Please check your connection and try again."
+          onRetry={retry}
+        />
       )}
       {state.status === 'success' && favoritePokemon.length === 0 && (
         <section className="empty-state" aria-labelledby="favorites-empty-title">

@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react'
 
+import ErrorMessage from '../components/ErrorMessage'
+import LoadingMessage from '../components/LoadingMessage'
 import PokemonList from '../components/PokemonList'
 import { usePokemonList } from '../hooks/usePokemonList'
 import { filterPokemonByName } from '../utils/pokemonFilters'
@@ -38,23 +40,14 @@ export default function PokemonCatalogPage() {
         </div>
       </header>
       {state.status === 'loading' && (
-        <section className="request-state" role="status">
-          <span className="request-state__spinner" aria-hidden="true" />
-          <p>Loading Pokemon...</p>
-        </section>
+        <LoadingMessage message="Loading Pokemon..." />
       )}
       {state.status === 'error' && (
-        <section className="request-state" role="alert">
-          <h2>Could not load Pokemon</h2>
-          <p>Please check your connection and try again.</p>
-          <button
-            className="retry-button"
-            onClick={retry}
-            type="button"
-          >
-            Try again
-          </button>
-        </section>
+        <ErrorMessage
+          title="Could not load Pokemon"
+          description="Please check your connection and try again."
+          onRetry={retry}
+        />
       )}
       {state.status === 'success' && state.pokemon.length === 0 && (
         <section className="request-state" role="status">
