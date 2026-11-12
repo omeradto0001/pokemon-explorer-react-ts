@@ -4,10 +4,20 @@ A new React + Vite + TypeScript course project generated from the [instructor's 
 
 ## Current status
 
-Tasks 1–10 are complete: the catalog loads the first 60 Pokemon from PokéAPI with name search, each Pokemon has a detail page, and Favorites are saved in `localStorage` with their own search.
+Tasks 1–11 are complete: the catalog loads the first 60 Pokemon from PokéAPI with name search, each Pokemon has a detail page, and Favorites are saved in `localStorage` with their own search.
 Loading, error (with retry), empty and not-found states are shared components.
 Compare (`/compare`) lets you choose two different Pokemon and shows their types, height, weight and base stats side by side, highlighting the higher value of each stat.
 Automatic prompt capture was verified with a real new user message on October 17, 2026.
+
+## Pages
+
+| Route | Page |
+|---|---|
+| `/` | Redirects to `/pokemon` |
+| `/pokemon` | Catalog of the first 60 Pokemon with name search and favorite toggles |
+| `/pokemon/:id` | Details: image or fallback, types, abilities, base stats, height and weight |
+| `/favorites` | Saved favorites with their own name search |
+| `/compare` | Two different Pokemon side by side |
 
 ## Run and check
 

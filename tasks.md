@@ -23,7 +23,7 @@ No completion marks carry over from the old project.
   - Done when: at least four custom non-page components such as `AppLayout`, `Navigation`, `PokemonList`, `PokemonListItem`, `LoadingMessage`, `ErrorMessage` or `PokemonStats` exist in separate files; typed props and state ownership are clear; active/favorite states are visually clear; and catalog, details, Favorites and Compare work on wide and narrow screens.
 - [x] Task 10: Complete five meaningful logic tests and regression checks.
   - Done when: at least five meaningful tests cover ID extraction, API mapping, filtering, favorite persistence and comparison rules; `npm test`, `npm run build` and `npm run lint` pass; and all routes, empty results, image fallback, API failures and retry behavior are verified in the browser.
-- [ ] Task 11: Complete submission documentation and defense preparation.
+- [x] Task 11: Complete submission documentation and defense preparation.
   - Done when: README documents the implemented pages, API and all run/test commands; PRD/tasks match the final app; the public repository opens without login; prompt history is included; and the student can explain component responsibilities, state ownership, API mapping, routes, favorites, comparison and tests.
 
 After each task, run available tests and browser checks. The student adds their own note about what they checked or changed.

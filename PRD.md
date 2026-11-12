@@ -12,10 +12,10 @@ Keep the code simple enough for the student to understand and explain.
 
 | Page | Purpose | Status |
 |---|---|---|
-| Pokemon catalog (`/pokemon`) | Browse and filter the first 60 loaded Pokemon | Required and approved |
-| Pokemon details (`/pokemon/:id`) | Display a Pokemon at its own URL | Required and approved |
-| Favorites (`/favorites`) | Add, remove and revisit favorites persisted in `localStorage` | Approved additional page |
-| Compare (`/compare`) | Select two Pokemon and compare their data side by side | Approved additional page |
+| Pokemon catalog (`/pokemon`) | Browse and filter the first 60 loaded Pokemon | Required; implemented |
+| Pokemon details (`/pokemon/:id`) | Display a Pokemon at its own URL | Required; implemented |
+| Favorites (`/favorites`) | Add, remove and revisit favorites persisted in `localStorage` | Additional page; implemented |
+| Compare (`/compare`) | Select two Pokemon and compare their data side by side | Additional page; implemented |
 
 A static About page does not count as an additional functional page.
 
@@ -27,7 +27,7 @@ A static About page does not count as an additional functional page.
 4. When I favorite or unfavorite a Pokemon, the Favorites page updates and the choice remains after a page refresh.
 5. When I choose two different Pokemon on the Compare page, I see their types, height, weight and base stats side by side.
 
-The catalog and details must remain readable and operable on narrow screens.
+All four pages must remain readable and operable on narrow screens.
 
 ## Technical requirements
 
