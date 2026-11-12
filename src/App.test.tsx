@@ -27,3 +27,13 @@ test('the detail route rejects an invalid identifier', () => {
 
   expect(html).toContain('Pokemon not found')
 })
+
+test('an unknown route shows the not-found page inside the layout', () => {
+  const html = renderToStaticMarkup(
+    <MemoryRouter initialEntries={['/abc']}><App /></MemoryRouter>,
+  )
+
+  expect(html).toContain('Pokemon Explorer')
+  expect(html).toContain('Page not found')
+  expect(html).toContain('href="/pokemon"')
+})

@@ -25,5 +25,7 @@ No completion marks carry over from the old project.
   - Done when: at least five meaningful tests cover ID extraction, API mapping, filtering, favorite persistence and comparison rules; `npm test`, `npm run build` and `npm run lint` pass; and all routes, empty results, image fallback, API failures and retry behavior are verified in the browser.
 - [x] Task 11: Complete submission documentation and defense preparation.
   - Done when: README documents the implemented pages, API and all run/test commands; PRD/tasks match the final app; the public repository opens without login; prompt history is included; and the student can explain component responsibilities, state ownership, API mapping, routes, favorites, comparison and tests.
+- [x] Task 12: Add a 404 page for unknown routes (bonus).
+  - Done when: any undefined URL such as `/abc` shows "Page not found" with a link back to the catalog inside the app layout and navigation; a test covers it; and `npm test`, `npm run build` and `npm run lint` pass.
 
 After each task, run available tests and browser checks. The student adds their own note about what they checked or changed.

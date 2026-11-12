@@ -13,6 +13,7 @@ All routes render inside `AppLayout` (header, navigation and `<Outlet />`).
 | `/pokemon/:id` | `PokemonDetailsPage` | Details of one Pokemon; `:id` from `useParams` is the source of truth |
 | `/favorites` | `FavoritesPage` | Saved Pokemon with their own search |
 | `/compare` | `ComparePage` | Two Pokemon side by side |
+| `*` | `NotFoundPage` | Any unknown URL: "Page not found" with a link back to the catalog |
 
 ## Data flow
 
@@ -68,4 +69,4 @@ Components below the pages receive data through typed props. Favorites are read 
 | `utils/pokemonFilters.ts` | Trimmed, case-insensitive name filter | `pokemonFilters.test.ts` |
 | `utils/favorites.ts` | Toggle, parse and safely read/write favorite ids | `favorites.test.ts` |
 | `utils/compare.ts` | Distinct selection, stat pairing, stat leader, bar percent | `compare.test.ts` |
-| `App.tsx` routes | Catalog and detail routes render their loading / invalid-id states | `App.test.tsx` |
+| `App.tsx` routes | Catalog and detail routes render their loading / invalid-id states; unknown URLs render `NotFoundPage` | `App.test.tsx` |

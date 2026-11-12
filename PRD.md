@@ -2,6 +2,7 @@
 
 Planning baseline for the new TypeScript project. Source: [requirements map](docs/requirements-map.md).
 This replaces the old JavaScript plan. Pokemon is the user-approved topic.
+More documents: [architecture](docs/architecture.md) (components, routes and data flow) and [regression checklist](docs/regression-checklist.md).
 
 ## Audience and goal
 
@@ -26,6 +27,7 @@ A static About page does not count as an additional functional page.
 3. When I select a Pokemon, I see its details at its own URL, with its identifier read using useParams.
 4. When I favorite or unfavorite a Pokemon, the Favorites page updates and the choice remains after a page refresh.
 5. When I choose two different Pokemon on the Compare page, I see their types, height, weight and base stats side by side.
+6. When I open an unknown URL, I see a not-found page with a link back to the catalog.
 
 All four pages must remain readable and operable on narrow screens.
 
@@ -47,5 +49,5 @@ All four pages must remain readable and operable on narrow screens.
 ## Scope and decisions
 
 No backend, database, authentication, paid API, Redux, Next.js or heavy UI framework.
-Component tests and a 404 page remain optional. `localStorage` is included because persistent Favorites was explicitly approved.
+Component tests remain optional. A 404 page for unknown routes is implemented as a bonus. `localStorage` is included because persistent Favorites was explicitly approved.
 Same local folder; new public GitHub repository owned by omeradto0001.
