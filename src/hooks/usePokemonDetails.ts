@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 import { fetchPokemonDetails, type PokemonDetailsResult } from '../utils/pokemonApi'
 
-export type PokemonDetailsState =
+export type PokemonDetailsRequest =
   | { status: 'idle' }
   | { status: 'loading' }
   | PokemonDetailsResult
 
-type RequestState = { requestedId: number; state: PokemonDetailsState }
+type TrackedRequest = { requestedId: number; request: PokemonDetailsRequest }
 
 export function usePokemonDetails(pokemonId: number | null) {
-  const [request, setRequest] = useState<RequestState | null>(null)
+  const [tracked, setTracked] = useState<TrackedRequest | null>(null)
   const [attempt, setAttempt] = useState(0)
 
   useEffect(() => {
@@ -20,12 +20,12 @@ export function usePokemonDetails(pokemonId: number | null) {
     const controller = new AbortController()
 
     async function loadPokemonDetails(requestedId: number) {
-      setRequest({ requestedId, state: { status: 'loading' } })
+      setTracked({ requestedId, request: { status: 'loading' } })
 
       const result = await fetchPokemonDetails(requestedId, controller.signal)
 
       if (!controller.signal.aborted) {
-        setRequest({ requestedId, state: result })
+        setTracked({ requestedId, request: result })
       }
     }
 
@@ -34,14 +34,14 @@ export function usePokemonDetails(pokemonId: number | null) {
     return () => controller.abort()
   }, [pokemonId, attempt])
 
-  const state: PokemonDetailsState = pokemonId === null
+  const detailsRequest: PokemonDetailsRequest = pokemonId === null
     ? { status: 'idle' }
-    : request?.requestedId === pokemonId
-      ? request.state
+    : tracked?.requestedId === pokemonId
+      ? tracked.request
       : { status: 'loading' }
 
   return {
-    state,
-    retry: () => setAttempt((current) => current + 1),
+    detailsRequest,
+    retryDetails: () => setAttempt((current) => current + 1),
   }
 }

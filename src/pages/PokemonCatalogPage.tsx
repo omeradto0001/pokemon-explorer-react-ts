@@ -8,14 +8,14 @@ import { usePokemonList } from '../hooks/usePokemonList'
 import { filterPokemonByName } from '../utils/pokemonFilters'
 
 export default function PokemonCatalogPage() {
-  const { state, retry } = usePokemonList()
+  const { listRequest, retryList } = usePokemonList()
   const [searchQuery, setSearchQuery] = useState('')
-  const filteredPokemon = useMemo(
+  const filteredPokemonList = useMemo(
     () =>
-      state.status === 'success'
-        ? filterPokemonByName(state.pokemon, searchQuery)
+      listRequest.status === 'success'
+        ? filterPokemonByName(listRequest.pokemonList, searchQuery)
         : [],
-    [searchQuery, state],
+    [searchQuery, listRequest],
   )
 
   return (
@@ -40,24 +40,24 @@ export default function PokemonCatalogPage() {
           />
         </div>
       </header>
-      {state.status === 'loading' && (
+      {listRequest.status === 'loading' && (
         <LoadingMessage message="Loading Pokemon..." />
       )}
-      {state.status === 'error' && (
+      {listRequest.status === 'error' && (
         <ErrorMessage
           title="Could not load Pokemon"
           description="Please check your connection and try again."
-          onRetry={retry}
+          onRetry={retryList}
         />
       )}
-      {state.status === 'success' && state.pokemon.length === 0 && (
+      {listRequest.status === 'success' && listRequest.pokemonList.length === 0 && (
         <EmptyMessage title="No Pokemon found" description="The catalog is empty right now." />
       )}
-      {state.status === 'success' && state.pokemon.length > 0 && filteredPokemon.length === 0 && (
+      {listRequest.status === 'success' && listRequest.pokemonList.length > 0 && filteredPokemonList.length === 0 && (
         <EmptyMessage title="No matches found" description="Try a different Pokemon name." />
       )}
-      {state.status === 'success' && filteredPokemon.length > 0 && (
-        <PokemonList pokemon={filteredPokemon} />
+      {listRequest.status === 'success' && filteredPokemonList.length > 0 && (
+        <PokemonList pokemonList={filteredPokemonList} />
       )}
     </div>
   )

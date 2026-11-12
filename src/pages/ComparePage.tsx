@@ -16,24 +16,24 @@ type ComparisonProps = {
 }
 
 function Comparison({ firstId, secondId }: ComparisonProps) {
-  const { state: firstState, retry: retryFirst } = usePokemonDetails(firstId)
-  const { state: secondState, retry: retrySecond } = usePokemonDetails(secondId)
+  const { detailsRequest: firstRequest, retryDetails: retryFirst } = usePokemonDetails(firstId)
+  const { detailsRequest: secondRequest, retryDetails: retrySecond } = usePokemonDetails(secondId)
 
   return (
     <section className="comparison" aria-label="Pokemon comparison">
       <div className="comparison__columns">
-        <CompareColumn side="first" state={firstState} onRetry={retryFirst} />
-        <CompareColumn side="second" state={secondState} onRetry={retrySecond} />
+        <CompareColumn side="first" request={firstRequest} onRetry={retryFirst} />
+        <CompareColumn side="second" request={secondRequest} onRetry={retrySecond} />
       </div>
-      {firstState.status === 'success' && secondState.status === 'success' && (
-        <CompareStatsTable first={firstState.pokemon} second={secondState.pokemon} />
+      {firstRequest.status === 'success' && secondRequest.status === 'success' && (
+        <CompareStatsTable first={firstRequest.pokemon} second={secondRequest.pokemon} />
       )}
     </section>
   )
 }
 
 export default function ComparePage() {
-  const { state, retry } = usePokemonList()
+  const { listRequest, retryList } = usePokemonList()
   const [firstId, setFirstId] = useState<number | null>(null)
   const [secondId, setSecondId] = useState<number | null>(null)
 
@@ -46,20 +46,20 @@ export default function ComparePage() {
           See how two Pokemon measure up against each other.
         </p>
       </header>
-      {state.status === 'loading' && (
+      {listRequest.status === 'loading' && (
         <LoadingMessage message="Loading Pokemon..." />
       )}
-      {state.status === 'error' && (
+      {listRequest.status === 'error' && (
         <ErrorMessage
           title="Could not load Pokemon"
           description="Please check your connection and try again."
-          onRetry={retry}
+          onRetry={retryList}
         />
       )}
-      {state.status === 'success' && state.pokemon.length === 0 && (
+      {listRequest.status === 'success' && listRequest.pokemonList.length === 0 && (
         <EmptyMessage title="No Pokemon found" description="There is nothing to compare right now." />
       )}
-      {state.status === 'success' && state.pokemon.length > 0 && (
+      {listRequest.status === 'success' && listRequest.pokemonList.length > 0 && (
         <>
           <div className="compare-selects">
             <PokemonSelect
@@ -67,7 +67,7 @@ export default function ComparePage() {
               id="compare-first"
               label="First Pokemon"
               onChange={setFirstId}
-              pokemon={state.pokemon}
+              pokemonList={listRequest.pokemonList}
               value={firstId}
             />
             <PokemonSelect
@@ -75,7 +75,7 @@ export default function ComparePage() {
               id="compare-second"
               label="Second Pokemon"
               onChange={setSecondId}
-              pokemon={state.pokemon}
+              pokemonList={listRequest.pokemonList}
               value={secondId}
             />
           </div>

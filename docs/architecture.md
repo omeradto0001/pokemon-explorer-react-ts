@@ -25,15 +25,15 @@ PokéAPI ──fetch──> API types (types/pokeapi.ts)
 
 - `usePokemonList` loads `/pokemon?limit=60` and maps each result to `PokemonSummary`.
 - `usePokemonDetails(id)` calls `fetchPokemonDetails` (`utils/pokemonApi.ts`), which maps the response to `PokemonDetails` and returns `success`, `not-found` or `error`. A `null` id means `idle` (no request).
-- Both hooks expose `{ state, retry }`, abort the request on unmount or id change, and ignore stale responses.
+- `usePokemonList` returns `{ listRequest, retryList }`; `usePokemonDetails` returns `{ detailsRequest, retryDetails }`. Both abort the request on unmount or id change, and ignore stale responses.
 - Each page that calls a hook loads its own data; there is no shared cache between pages.
 
 ## State ownership
 
 | State | Owner | How it is shared |
 |---|---|---|
-| Pokemon list request | `usePokemonList` inside each page that needs it | `state` / `retry` returned to the page |
-| Pokemon details request | `usePokemonDetails` inside `PokemonDetailsPage` and `Comparison` (once per side) | `state` / `retry` returned to the caller |
+| Pokemon list request | `usePokemonList` inside each page that needs it | `listRequest` / `retryList` returned to the page |
+| Pokemon details request | `usePokemonDetails` inside `PokemonDetailsPage` and `Comparison` (once per side) | `detailsRequest` / `retryDetails` returned to the caller |
 | Favorite ids | `FavoritesProvider` (wraps the whole app in `AppLayout`) | `useFavorites()` context: `favoriteIds`, `isFavorite`, `toggleFavorite`; persisted to `localStorage` under `pokemon-explorer:favorites` |
 | Catalog / Favorites search text | The page (`useState`) | Controlled input; filtering by `filterPokemonByName` |
 | Compare selection (`firstId`, `secondId`) | `ComparePage` (`useState`) | Passed to `PokemonSelect` and `Comparison` as props |
@@ -49,15 +49,15 @@ Components below the pages receive data through typed props. Favorites are read 
 | `AppLayout` | Page frame: `FavoritesProvider`, header, brand link, `Navigation`, `<Outlet />` | — |
 | `Navigation` | `NavLink`s to Pokemon, Favorites and Compare with an active style | — |
 | `ScrollToTop` | Scrolls to the top when the path changes | — |
-| `PokemonList` | Renders a grid of `PokemonListItem` keyed by id | `pokemon` |
+| `PokemonList` | Renders a grid of `PokemonListItem` keyed by id | `pokemonList` |
 | `PokemonListItem` | Card linking to details, active style for the open Pokemon, favorite toggle | `pokemon` |
 | `PokemonArtwork` | Pokemon image with a fallback when missing or broken | `pokemon` |
 | `LoadingMessage` | Spinner with a message (`role="status"`) | `message` |
 | `ErrorMessage` | Error with a Try again button (`role="alert"`) | `title`, `description?`, `headingLevel?`, `onRetry` |
 | `EmptyMessage` | Simple no-results message | `title?`, `description?` |
 | `EmptyState` | Icon card for empty or not-found states, optional extra content | `icon`, `iconVariant?`, `title`, `description`, `headingLevel?`, `children?` |
-| `PokemonSelect` | Controlled select of loaded Pokemon, one option can be disabled | `id`, `label`, `pokemon`, `value`, `disabledId`, `onChange` |
-| `CompareColumn` | One comparison side: loading, error, not found or a card with image, types, height and weight | `side`, `state`, `onRetry` |
+| `PokemonSelect` | Controlled select of loaded Pokemon, one option can be disabled | `id`, `label`, `pokemonList`, `value`, `disabledId`, `onChange` |
+| `CompareColumn` | One comparison side: loading, error, not found or a card with image, types, height and weight | `side`, `request`, `onRetry` |
 | `CompareStatsTable` | Base stats of both Pokemon by row, with bars and the higher value highlighted | `first`, `second` |
 
 ## Utilities and tests

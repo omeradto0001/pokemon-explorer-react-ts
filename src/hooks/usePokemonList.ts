@@ -5,20 +5,20 @@ import { toPokemonSummary } from '../utils/pokemonMappers'
 
 const POKEMON_LIST_URL = 'https://pokeapi.co/api/v2/pokemon?limit=60'
 
-export type PokemonListState =
+export type PokemonListRequest =
   | { status: 'loading' }
   | { status: 'error' }
-  | { status: 'success'; pokemon: PokemonSummary[] }
+  | { status: 'success'; pokemonList: PokemonSummary[] }
 
 export function usePokemonList() {
-  const [state, setState] = useState<PokemonListState>({ status: 'loading' })
+  const [listRequest, setListRequest] = useState<PokemonListRequest>({ status: 'loading' })
   const [attempt, setAttempt] = useState(0)
 
   useEffect(() => {
     const controller = new AbortController()
 
     async function loadPokemon() {
-      setState({ status: 'loading' })
+      setListRequest({ status: 'loading' })
 
       try {
         const response = await fetch(POKEMON_LIST_URL, {
@@ -30,14 +30,14 @@ export function usePokemonList() {
         }
 
         const data: PokemonListApiResponse = await response.json()
-        const pokemon = data.results.map(toPokemonSummary)
+        const pokemonList = data.results.map(toPokemonSummary)
 
         if (!controller.signal.aborted) {
-          setState({ status: 'success', pokemon })
+          setListRequest({ status: 'success', pokemonList })
         }
       } catch {
         if (!controller.signal.aborted) {
-          setState({ status: 'error' })
+          setListRequest({ status: 'error' })
         }
       }
     }
@@ -48,7 +48,7 @@ export function usePokemonList() {
   }, [attempt])
 
   return {
-    state,
-    retry: () => setAttempt((current) => current + 1),
+    listRequest,
+    retryList: () => setAttempt((current) => current + 1),
   }
 }

@@ -2,14 +2,14 @@ import type { PokemonSummary } from '../types/pokemon'
 import PokemonListItem from './PokemonListItem'
 
 type PokemonListProps = {
-  pokemon: PokemonSummary[]
+  pokemonList: PokemonSummary[]
 }
 
-export default function PokemonList({ pokemon }: PokemonListProps) {
+export default function PokemonList({ pokemonList }: PokemonListProps) {
   return (
     <section className="catalog" aria-label="Pokemon catalog">
       <div className="pokemon-list">
-        {pokemon.map((item) => (
+        {pokemonList.map((item) => (
           <PokemonListItem key={item.id} pokemon={item} />
         ))}
       </div>

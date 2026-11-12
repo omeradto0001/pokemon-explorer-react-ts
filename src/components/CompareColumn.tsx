@@ -1,4 +1,4 @@
-import type { PokemonDetailsState } from '../hooks/usePokemonDetails'
+import type { PokemonDetailsRequest } from '../hooks/usePokemonDetails'
 import type { CompareSide } from '../utils/compare'
 import EmptyMessage from './EmptyMessage'
 import ErrorMessage from './ErrorMessage'
@@ -7,24 +7,24 @@ import PokemonArtwork from './PokemonArtwork'
 
 type CompareColumnProps = {
   side: CompareSide
-  state: PokemonDetailsState
+  request: PokemonDetailsRequest
   onRetry: () => void
 }
 
-export default function CompareColumn({ side, state, onRetry }: CompareColumnProps) {
-  if (state.status === 'idle' || state.status === 'loading') {
+export default function CompareColumn({ side, request, onRetry }: CompareColumnProps) {
+  if (request.status === 'idle' || request.status === 'loading') {
     return <LoadingMessage message="Loading Pokemon details..." />
   }
 
-  if (state.status === 'error') {
+  if (request.status === 'error') {
     return <ErrorMessage title="Could not load Pokemon details" onRetry={onRetry} />
   }
 
-  if (state.status === 'not-found') {
+  if (request.status === 'not-found') {
     return <EmptyMessage title="Pokemon not found" />
   }
 
-  const { pokemon } = state
+  const { pokemon } = request
 
   return (
     <article className={`compare-card compare-card--${side}`}>

@@ -1,12 +1,12 @@
 import type { PokemonSummary } from '../types/pokemon'
 
 export function filterPokemonByName(
-  pokemon: PokemonSummary[],
+  pokemonList: PokemonSummary[],
   query: string,
 ): PokemonSummary[] {
   const normalizedQuery = query.trim().toLowerCase()
 
-  return pokemon.filter((item) =>
+  return pokemonList.filter((item) =>
     item.name.toLowerCase().includes(normalizedQuery),
   )
 }

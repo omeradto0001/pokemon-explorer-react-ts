@@ -10,13 +10,13 @@ import { filterPokemonByName } from '../utils/pokemonFilters'
 
 export default function FavoritesPage() {
   const { favoriteIds } = useFavorites()
-  const { state, retry } = usePokemonList()
+  const { listRequest, retryList } = usePokemonList()
   const [searchQuery, setSearchQuery] = useState('')
-  const favoritePokemon =
-    state.status === 'success'
-      ? state.pokemon.filter((pokemon) => favoriteIds.includes(pokemon.id))
+  const favoritePokemonList =
+    listRequest.status === 'success'
+      ? listRequest.pokemonList.filter((pokemon) => favoriteIds.includes(pokemon.id))
       : []
-  const filteredFavorites = filterPokemonByName(favoritePokemon, searchQuery)
+  const filteredFavorites = filterPokemonByName(favoritePokemonList, searchQuery)
 
   return (
     <div className="app-shell page-stack">
@@ -27,24 +27,24 @@ export default function FavoritesPage() {
           Keep the Pokemon you love close at hand.
         </p>
       </header>
-      {state.status === 'loading' && (
+      {listRequest.status === 'loading' && (
         <LoadingMessage message="Loading your favorites..." />
       )}
-      {state.status === 'error' && (
+      {listRequest.status === 'error' && (
         <ErrorMessage
           title="Could not load favorites"
           description="Please check your connection and try again."
-          onRetry={retry}
+          onRetry={retryList}
         />
       )}
-      {state.status === 'success' && favoritePokemon.length === 0 && (
+      {listRequest.status === 'success' && favoritePokemonList.length === 0 && (
         <EmptyState
           icon="♥"
           title="No favorite Pokemon yet"
           description="Your saved Pokemon will appear here."
         />
       )}
-      {state.status === 'success' && favoritePokemon.length > 0 && (
+      {listRequest.status === 'success' && favoritePokemonList.length > 0 && (
         <>
           <div className="catalog-search">
             <label className="catalog-search__label" htmlFor="favorite-search">
@@ -62,7 +62,7 @@ export default function FavoritesPage() {
           {filteredFavorites.length === 0 ? (
             <EmptyMessage title="No favorite matches found" description="Try a different Pokemon name." />
           ) : (
-            <PokemonList pokemon={filteredFavorites} />
+            <PokemonList pokemonList={filteredFavorites} />
           )}
         </>
       )}
